@@ -27,9 +27,9 @@ form.addEventListener('submit', (evento) => {
         //Chamar a função atualiaza
         atualizaItem(itemAtual)
         //Coloca o item atulizado na posição certa dentro do array
-        itens[existe.id] = itemAtual
+        itens[itens.findIndex(elemento => elemento.id === existe.id)] = itemAtual
     }else{
-        itemAtual.id = itens.length
+        itemAtual.id = itens[itens.length -1] ? (itens[itens.length -1]).id + 1 : 0
         //Cria elementos
         criaElemento(itemAtual)
         //Esse objeto e colocado dentro de um array.
@@ -43,7 +43,6 @@ form.addEventListener('submit', (evento) => {
 })
 //Função para criar elementos
 function criaElemento(item) {
-    console.log()
     //Novo item criado.
     const novoItem = document.createElement('li')
     //Classe adcionado
@@ -57,6 +56,8 @@ function criaElemento(item) {
     novoItem.appendChild(numeroItem)
     //Concatenar com o nome.
     novoItem.innerHTML += item.nome
+    //Criando botão deletar
+    novoItem.appendChild(botaoDeleta(item.id))
     //Incluir o item na lista.
     lista.appendChild(novoItem)
 }
@@ -64,4 +65,27 @@ function criaElemento(item) {
 function atualizaItem(item){
     //Atualiza a quantidade do item 
     document.querySelector("[data-id='"+item.id+"']").innerHTML = item.quantidade
+}
+//Função de criar botao delete
+function botaoDeleta(id){
+    //Cria o botao
+    const elementoBotao = document.createElement('button');
+    //Coloca o valor 'X' dentro dele
+    elementoBotao.innerHTML = 'X'
+    //Cria o evento de click chamando a função que ira deletar o elemento
+    elementoBotao.addEventListener('click', function(){
+        deleteElemento(this.parentNode, id)
+    })
+
+    return elementoBotao
+}
+//Função remove o elemento da pagina e do localStore
+function deleteElemento(tag, id){
+     
+    tag.remove()
+
+    itens.splice(itens.findIndex(elemento => elemento.id === id),1)
+
+    localStorage.setItem('itens', JSON.stringify(itens))
+
 }
