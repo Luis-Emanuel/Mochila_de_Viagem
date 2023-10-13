@@ -17,7 +17,7 @@
 
 ## 📁 Acesso ao projeto
 
-[Veja o projeto final do curso em funcionamento](https://mochila-de-viagem-luis-emanuel.vercel.app/).
+[Veja o projeto final do curso em funcionamento](https://mochila-de-viagem-nt.vercel.app/).
 
 ## 📷FOTOS DO PROJETO
 
